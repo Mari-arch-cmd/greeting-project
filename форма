@@ -1,0 +1,25 @@
+from django import forms
+from django.core.validators import RegexValidator
+
+
+class NameForm(forms.Form):
+    name = forms.CharField(
+        label='Ваше имя',
+        max_length=100,
+        validators=[
+            RegexValidator(
+                r'^[А-Яа-яЁёA-Za-z\- ]+$',
+                'Имя может содержать только буквы, пробел и дефис.'
+            )
+        ],
+        widget=forms.TextInput(attrs={
+            'class': 'input-field',
+            'placeholder': 'Введите ваше имя',
+        })
+    )
+
+    def clean_name(self):
+        name = self.cleaned_data['name'].strip()
+        if not name:
+            raise forms.ValidationError('Поле имени не может быть пустым.')
+        return name
