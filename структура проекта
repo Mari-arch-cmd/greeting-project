@@ -1,0 +1,22 @@
+greeting_project/
+├── manage.py
+├── requirements.txt
+├── README.md
+├── greeting_project/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── hello/
+    ├── __init__.py
+    ├── models.py
+    ├── views.py
+    ├── urls.py
+    ├── forms.py
+    └── templates/
+        └── hello/
+            ├── base.html
+            └── home.html
+    └── static/
+        └── hello/
+            └── style.css
