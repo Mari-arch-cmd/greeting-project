@@ -1,0 +1,8 @@
+mkdir greeting_project && cd greeting_project
+python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # Linux/macOS
+
+pip install django
+django-admin startproject greeting_project .
+python manage.py startapp hello
