@@ -1,0 +1,30 @@
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
+from .forms import NameForm
+from .models import User
+
+
+def home(request):
+    """Главная страница: форма ввода имени и персонализированное приветствие."""
+    greeting = None
+    user_name = request.session.get('user_name')
+
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            # Сохраняем имя в базу данных
+            User.objects.get_or_create(name=name)
+            # Запоминаем для приветствия на главной
+            request.session['user_name'] = name
+            return redirect('home')
+    else:
+        form = NameForm()
+        if user_name:
+            greeting = f'Привет, {user_name}! Рады видеть вас на нашем сайте.'
+
+    return render(request, 'hello/home.html', {
+        'form': form,
+        'greeting': greeting,
+    })
